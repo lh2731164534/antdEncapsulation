@@ -7,6 +7,7 @@ type Props={ src: string | undefined;licenceEncode: string | undefined }
 
 const ImgPre: React.FC<Props> =({src,licenceEncode}: Props)=>{
     const [visible,setVisible]=useState(false)
+    const [iconVisible,setIconVisible]=useState(false)
     const [isShowData,setIsShowData]=useState(false)
     const [rotate,setRotate]=useState(360)
     const [scale,setScale]=useState(1)
@@ -15,32 +16,38 @@ const ImgPre: React.FC<Props> =({src,licenceEncode}: Props)=>{
       <div className='mask'>
       <Image src={src} preview={false} width={30} height={30} className='img' onClick={()=>{
         setVisible(true)
+        setTimeout(()=>{
+          setIconVisible(true)
+        },500)
       }}/>
       </div>
       <Modal destroyOnClose visible={visible} footer={false} closable={false} onCancel={()=>{
         setVisible(false)
       }}
+      afterClose={()=>{
+        setIconVisible(false)
+      }}
       style={{display:'flex',flexDirection:'column',alignItems:'center'}}>
           <Image src={src} preview={false} style={{transform: 'rotate(+'+rotate+'deg) scale('+scale+')',transition:'0.5s'}} />
-            <UndoOutlined className='left-rotate'style={{color:rotate <=0 ?'#DDDDDD':'#000000',transition:'0.5s'}} onClick={()=>{
+            <UndoOutlined className='left-rotate'style={{color: !iconVisible? "#ffffff": rotate <=0 ?'#DDDDDD':'#000000',transition:'0.5s'}} onClick={()=>{
               if(rotate<=0){
                 return
               }
               setRotate(rotate-90)
             }} />
-          <RedoOutlined className='right-rotate' style={{color:rotate >=720 ?'#DDDDDD':'#000000',transition:'0.5s'}} onClick={()=>{
+          <RedoOutlined className='right-rotate' style={{color:!iconVisible? "#ffffff":rotate >=720 ?'#DDDDDD':'#000000',transition:'0.5s'}} onClick={()=>{
             if(rotate>=720){
               return
             }
               setRotate(rotate+90)
             }}/>
-            <ZoomInOutlined className='grow-scale' style={{color:scale >=2 ?'#DDDDDD':'#000000',transition:'0.5s'}} onClick={()=>{
+            <ZoomInOutlined className='grow-scale' style={{color:!iconVisible? "#ffffff":scale >=2 ?'#DDDDDD':'#000000',transition:'0.5s'}} onClick={()=>{
               if(scale>=2){
                 return
               }
               setScale(scale+0.1)
             }} />
-            <ZoomOutOutlined className='low-scale'style={{color:scale <=1 ?'#DDDDDD':'#000000',transition:'0.5s'}} onClick={()=>{
+            <ZoomOutOutlined className='low-scale'style={{color:!iconVisible? "#ffffff":scale <=1 ?'#DDDDDD':'#000000',transition:'0.5s'}} onClick={()=>{
               if(scale<=1){
                 return
               }
