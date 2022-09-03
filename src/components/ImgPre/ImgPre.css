@@ -20,3 +20,32 @@
     position: relative;
     transition: 0.5s;
 }
+
+.left-rotate {
+  font-size: 50px;
+  position: fixed;
+  right: 310px;
+  top: 10px;
+}
+
+.right-rotate {
+  font-size: 50px;
+  position: fixed;
+  right: 210px;
+  top: 10px;
+}
+
+.grow-scale{
+  font-size: 50px;
+  position: fixed;
+  right: 10px;
+  top: 10px;
+}
+
+.low-scale{
+  font-size: 50px;
+  position: fixed;
+  right: 110px;
+  top: 10px;
+}
+
